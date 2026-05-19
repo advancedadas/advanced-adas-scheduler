@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import Layout from '../components/Layout';
 import JobModal from '../components/JobModal';
