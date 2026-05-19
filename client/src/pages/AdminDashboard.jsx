@@ -16,6 +16,26 @@ export default function AdminDashboard() {
   active: true
 });
 const [userMessage, setUserMessage] = useState('');
+  const handleCreateUser = async (e) => {
+  e.preventDefault();
+  setUserMessage('');
+
+  try {
+    await usersApi.create(newUser);
+    setUserMessage('User created successfully.');
+    setNewUser({
+      name: '',
+      email: '',
+      password: '',
+      role: 'employee',
+      color: '#2563eb',
+      active: true
+    });
+    await loadData();
+  } catch (err) {
+    setUserMessage(err.response?.data?.message || 'Could not create user.');
+  }
+};
 
   async function load() {
     const params = Object.fromEntries(Object.entries(filters).filter(([,v]) => v));
