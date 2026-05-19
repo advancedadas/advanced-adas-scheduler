@@ -10,6 +10,7 @@ import authRoutes from './routes/auth.js';
 import jobRoutes from './routes/jobs.js';
 import userRoutes from './routes/users.js';
 import adminRoutes from './routes/admin.js';
+import userRoutes from './routes/users.js';
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);
