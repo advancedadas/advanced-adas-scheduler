@@ -10,7 +10,6 @@ import authRoutes from './routes/auth.js';
 import jobRoutes from './routes/jobs.js';
 import userRoutes from './routes/users.js';
 import adminRoutes from './routes/admin.js';
-import userRoutes from './routes/users.js';
 
 dotenv.config();
 
