@@ -19,7 +19,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = [
+      process.env.CLIENT_URL,
+      'https://advanced-adas-scheduler.vercel.app'
+    ];
+
+    const isAllowed =
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app');
+
+    if (isAllowed) return callback(null, true);
+
+    return callback(new Error(`CORS blocked origin: ${origin}`));
+  },
+  credentials: true
+}));
 app.use(express.json({ limit: '1mb' }));
 app.use('/uploads', express.static(path.resolve(__dirname, '..', process.env.UPLOAD_DIR || 'uploads')));
 
