@@ -46,5 +46,105 @@ const [userMessage, setUserMessage] = useState('');
 
   function update(key, value) { setFilters(prev => ({ ...prev, [key]: value })); }
 
-  return <Layout><div className="page-head"><div><h1>Admin Dashboard</h1><p>Filter jobs, monitor completion, and review uploaded calibration photos.</p></div><button onClick={load}>Apply Filters</button></div><section className="stats"><div><span>Scheduled</span><strong>{overview.totals.scheduled}</strong></div><div><span>Completed</span><strong>{overview.totals.completed}</strong></div><div><span>Pending</span><strong>{overview.totals.pending}</strong></div></section><section className="filters"><select value={filters.employeeId} onChange={e => update('employeeId', e.target.value)}><option value="">All employees</option>{employees.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}</select><select value={filters.status} onChange={e => update('status', e.target.value)}><option value="">All statuses</option><option value="completed">Completed</option><option value="pending">Pending</option></select><input type="date" value={filters.startDate} onChange={e => update('startDate', e.target.value)} /><input type="date" value={filters.endDate} onChange={e => update('endDate', e.target.value)} /></section><div className="table-card"><table><thead><tr><th>Date</th><th>Time</th><th>Shop</th><th>Employee</th><th>Job</th><th>Status</th><th>Photos</th></tr></thead><tbody>{overview.jobs.map(job => <tr key={job.id}><td>{job.date}</td><td>{job.time?.slice(0,5)}</td><td>{job.shopName}</td><td>{job.assignedTo?.name}</td><td>{job.job}</td><td><span className={job.completed ? 'pill done' : 'pill pending'}>{job.completed ? 'Complete' : 'Pending'}</span></td><td><div className="photo-links">{job.photos.map(p => <a key={p.id} href={`${SERVER_BASE}${p.url}`} target="_blank" rel="noreferrer">Photo</a>)}</div></td></tr>)}</tbody></table></div></Layout>;
+  return <Layout>return <Layout>
+
+<div className="page-head">
+  <div>
+    <h1>Admin Dashboard</h1>
+    <p>Filter jobs...</p>
+  </div>
+</div>
+
+
+<div className="card" style={{ marginBottom: 20 }}>
+<h2>Add New User</h2>
+
+{userMessage && (
+<p style={{ marginBottom: 10 }}>
+{userMessage}
+</p>
+)}
+
+<form
+onSubmit={handleCreateUser}
+style={{
+display:'grid',
+gap:'10px'
+}}
+>
+
+<input
+placeholder="Name"
+value={newUser.name}
+onChange={(e)=>
+setNewUser({
+...newUser,
+name:e.target.value
+})
+}
+/>
+
+<input
+placeholder="Email"
+value={newUser.email}
+onChange={(e)=>
+setNewUser({
+...newUser,
+email:e.target.value
+})
+}
+/>
+
+<input
+type="password"
+placeholder="Password"
+value={newUser.password}
+onChange={(e)=>
+setNewUser({
+...newUser,
+password:e.target.value
+})
+}
+/>
+
+<select
+value={newUser.role}
+onChange={(e)=>
+setNewUser({
+...newUser,
+role:e.target.value
+})
+}
+>
+<option value="employee">
+Employee
+</option>
+
+<option value="admin">
+Admin
+</option>
+
+</select>
+
+<input
+type="color"
+value={newUser.color}
+onChange={(e)=>
+setNewUser({
+...newUser,
+color:e.target.value
+})
+}
+/>
+
+<button type="submit">
+Create User
+</button>
+
+</form>
+
+</div>
+
+
+<div className="page-head"><div><h1>Admin Dashboard</h1><p>Filter jobs, monitor completion, and review uploaded calibration photos.</p></div><button onClick={load}>Apply Filters</button></div><section className="stats"><div><span>Scheduled</span><strong>{overview.totals.scheduled}</strong></div><div><span>Completed</span><strong>{overview.totals.completed}</strong></div><div><span>Pending</span><strong>{overview.totals.pending}</strong></div></section><section className="filters"><select value={filters.employeeId} onChange={e => update('employeeId', e.target.value)}><option value="">All employees</option>{employees.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}</select><select value={filters.status} onChange={e => update('status', e.target.value)}><option value="">All statuses</option><option value="completed">Completed</option><option value="pending">Pending</option></select><input type="date" value={filters.startDate} onChange={e => update('startDate', e.target.value)} /><input type="date" value={filters.endDate} onChange={e => update('endDate', e.target.value)} /></section><div className="table-card"><table><thead><tr><th>Date</th><th>Time</th><th>Shop</th><th>Employee</th><th>Job</th><th>Status</th><th>Photos</th></tr></thead><tbody>{overview.jobs.map(job => <tr key={job.id}><td>{job.date}</td><td>{job.time?.slice(0,5)}</td><td>{job.shopName}</td><td>{job.assignedTo?.name}</td><td>{job.job}</td><td><span className={job.completed ? 'pill done' : 'pill pending'}>{job.completed ? 'Complete' : 'Pending'}</span></td><td><div className="photo-links">{job.photos.map(p => <a key={p.id} href={`${SERVER_BASE}${p.url}`} target="_blank" rel="noreferrer">Photo</a>)}</div></td></tr>)}</tbody></table></div></Layout>;
 }
