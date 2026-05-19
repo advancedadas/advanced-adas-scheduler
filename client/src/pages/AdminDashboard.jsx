@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { api, SERVER_BASE } from '../api/client';
+import { usersApi } from '../api/client';
 
 export default function AdminDashboard() {
   const [employees, setEmployees] = useState([]);
   const [filters, setFilters] = useState({ employeeId: '', status: '', startDate: '', endDate: '' });
   const [overview, setOverview] = useState({ totals: { scheduled: 0, completed: 0, pending: 0 }, jobs: [] });
+  const [newUser, setNewUser] = useState({
+  name: '',
+  email: '',
+  password: '',
+  role: 'employee',
+  color: '#2563eb',
+  active: true
+});
+const [userMessage, setUserMessage] = useState('');
 
   async function load() {
     const params = Object.fromEntries(Object.entries(filters).filter(([,v]) => v));
