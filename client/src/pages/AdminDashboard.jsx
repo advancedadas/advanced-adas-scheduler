@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import api, { SERVER_BASE, usersApi } from '../api/client';
+import { api, SERVER_BASE, usersApi } from '../api/client';
 
 export default function AdminDashboard() {
   const [overview, setOverview] = useState({
